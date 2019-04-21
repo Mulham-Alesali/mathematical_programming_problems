@@ -1,0 +1,125 @@
+import java.beans.PropertyChangeSupport;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class Newton_Model {
+	double a, n, result;
+	int d;
+	double x;
+	double xold;
+
+	static final String RESULT_CHANGE = "res";
+
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+	public Newton_Model(double a, double n, int d) {
+		super();
+		this.a = a;
+		this.n = n;
+		this.d = d;
+	}
+
+	public Newton_Model() {
+
+	}
+
+	public double getA() {
+		return a;
+	}
+
+	public void setA(double a) {
+		this.a = a;
+	}
+
+	public double getN() {
+		return n;
+	}
+
+	public void setN(double n) {
+		this.n = n;
+	}
+
+	public double getD() {
+		return d;
+	}
+
+	public void setD(int d) {
+		this.d = d;
+	}
+
+	public double getResult() {
+		return result;
+	}
+
+	public void setResult(double result) {
+		this.result = result;
+	}
+
+	public void process() throws Exceptions {
+		if (a < 0)
+			throw new Exceptions("a soll Positiv sein");
+		if (n <= 0)
+			throw new Exceptions("n soll grosser als null sein");
+		if (d < 0)
+			throw new Exceptions("d soll positiv sein");
+
+		x = a / 2;
+		xold = 0;
+
+		double nullen = Math.pow(10, d);
+
+		double temp = 0;
+		while ((Math.abs(x - xold) >= 1 / (nullen + 1)) && x != temp) {
+
+			temp = xold;
+			xold = x;
+			x = xold - f(x, n, a) / fprime(x, n, a);
+
+		}
+		result = round(x,d);
+		pcs.firePropertyChange(RESULT_CHANGE, 0, result);
+		
+
+	}
+
+	private static double round(double value, int places) throws Exceptions {
+
+		if (places < 0)
+			throw new Exceptions("illegal Argument");
+		
+		BigDecimal bd = new BigDecimal(Double.toString(value));
+		bd = bd.setScale(places, RoundingMode.FLOOR);
+		return bd.doubleValue();
+
+	}
+	
+
+	/*
+	 * private static double round(double nullen) throws Exceptions { //check if
+	 * there is a overflow // if (Math.round(Math.round(x * nullen) / nullen) !=
+	 * Math.round(x)) // throw new Exceptions("d ist zu groß");
+	 * 
+	 * double roundMitNullen = x * nullen; System.out.println("round Mit Nullen" +
+	 * roundMitNullen); if(roundMitNullen % 10 == 0) return
+	 * Math.round(roundMitNullen) / nullen; else throw new
+	 * Exceptions("d ist zu gross");
+	 * 
+	 * }
+	 */
+
+	// f(x) = x ^ n - a
+	private static double f(double x, double n, double a) {
+		return Math.pow(x, n) - a;
+	}
+
+	// f'(x) = n * x ^ (n - 1)
+	private static double fprime(double x, double n, double a) {
+		return n * Math.pow(x, n - 1);
+	}
+
+	public void addPropertyChangeListener(Newton_View newton_View) {
+		pcs.addPropertyChangeListener(newton_View);
+
+	}
+
+}

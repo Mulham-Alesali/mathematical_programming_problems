@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		double a = sc.nextDouble(); //nicht negative
+		double n = sc.nextDouble(); // positiv number
+		double d = sc.nextDouble();  //genauig keit eingabe
+		
+		
+		
+		
+		double x = a / 2;
+		double xold = 0;
+		
+		while(x != xold) {
+			xold = x;
+			x = x - f(x,n,a) / fprime(x,n,a);
+		}
+		
+		
+		double result = round(x,d);
+		
+		
+	}
+	
+	
+	private static double round(double x, double d) {
+		int i = (int)d;
+		while(i > 0) {
+			d *= 10;
+			i--;
+		}
+		
+		return Math.round((x * d) / d);
+	}
+	//f(x) = x ^ n - a
+	private static double f(double x, double n, double a) {
+		return Math.pow(x, n) - a;
+	}
+	
+	//f'(x) = n * x ^ (n - 1)
+	private static double fprime(double x, double n, double a) {
+		return n * Math.pow(x, n - 1);
+	}
+	
+	
+
+}

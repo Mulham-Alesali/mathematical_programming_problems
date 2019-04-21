@@ -1,1 +1,0 @@
-# mathematical_programming_problems

@@ -20,9 +20,13 @@ public class View extends JPanel implements ActionListener, PropertyChangeListen
 	JButton btndechiffrieren = new JButton("Dechiffrieren");
 	
 	JTextArea klartext = new JTextArea(25,40);	
-	JTextField txtkey = new JTextField("",15);
+	JTextField txtkey = new JTextField("",10);
 	JTextArea cipherText = new JTextArea(25,40);
 	JComboBox combobox;
+	
+	JScrollPane scrollpane = new JScrollPane(klartext);
+	JScrollPane scrollpane2 = new JScrollPane(cipherText);
+	
 	
 	@SuppressWarnings("unused")
 	private static File openFile(Frame f) {
@@ -39,8 +43,7 @@ public class View extends JPanel implements ActionListener, PropertyChangeListen
  
     }
 	
-	
-	
+
 	public View(Model model)  {
 		this.model = model;
 		model.addPropertyChangeListener(this);
@@ -52,10 +55,18 @@ public class View extends JPanel implements ActionListener, PropertyChangeListen
 		label1.setAlignmentY(TOP_ALIGNMENT);
 		box.add(label1);
 		box.add(Box.createVerticalStrut(5));
+		
+		
+		
+		
 		klartext.setAlignmentX(LEFT_ALIGNMENT);
 		klartext.setBounds(200, 200, 100, 100);
 		klartext.setLineWrap(true);
-		box.add(klartext);
+
+		
+		scrollpane.setPreferredSize(new Dimension(400,400));
+		
+		box.add(scrollpane, klartext);
 		
 		add(box);
 		
@@ -79,6 +90,7 @@ public class View extends JPanel implements ActionListener, PropertyChangeListen
 		lblkey.setAlignmentX(TOP_ALIGNMENT);
 		box2.add(lblkey);
 		box2.add(Box.createVerticalStrut(5));
+		
 		box2.add(txtkey);
 		
 		box2.add(Box.createVerticalStrut(20));
@@ -121,7 +133,10 @@ public class View extends JPanel implements ActionListener, PropertyChangeListen
 		box3.add(Box.createVerticalStrut(5));
 		cipherText.setAlignmentX(LEFT_ALIGNMENT);
 		cipherText.setLineWrap(true);
-		box3.add(cipherText);
+		
+		scrollpane2.setPreferredSize(new Dimension(400,400));
+		box3.add(scrollpane2, cipherText);
+		
 		box3.add(Box.createVerticalStrut(15));
 		add(box3);
 	}

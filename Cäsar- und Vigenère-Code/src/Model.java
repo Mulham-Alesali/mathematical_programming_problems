@@ -22,6 +22,16 @@ public class Model {
 	String key;
 	File file;
 	
+	int chipher;// 0: cäser, 1: vigenere
+	
+	public int getChipher() {
+		return chipher;
+	}
+
+	public void setChipher(int chipher) {
+		this.chipher = chipher;
+	}
+
 	public File getFile() {
 		return file;
 	}

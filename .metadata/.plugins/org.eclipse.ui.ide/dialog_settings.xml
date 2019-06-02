@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\mulha\Downloads\java-gaussjordan-master\java-gaussjordan-master"/>
+		<item value="D:\Abgabe von mathimatische Programmierung\FiatShamirProtokoll"/>
+		<item value="D:\Abgabe von mathimatische Programmierung\CiphersV2\CiphersV2-master"/>
+		<item value="D:\Abgabe von mathimatische Programmierung\Caesar-Cipher-Attack"/>
+	</list>
 	<section name="ChooseWorkspaceDialogSettings">
 		<item key="DIALOG_X_ORIGIN" value="617"/>
 		<item key="DIALOG_Y_ORIGIN" value="274"/>

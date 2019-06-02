@@ -46,7 +46,7 @@ public class HeufigkeitTabelle {
 		
 		double result = 0;
 		for(char c = 'a'; c <= 'z'; c++) {
-			result += Math.pow((((Integer)httext.get(c) / (double)s.length()) 
+			result += Math.pow(((httext.get(c) / (double)s.length()) 
 					- (double) htdeutsch.get(c)), 2);
 			
 		}

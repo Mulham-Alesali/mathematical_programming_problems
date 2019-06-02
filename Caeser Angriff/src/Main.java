@@ -18,7 +18,7 @@ public class Main {
 		double testing = 0;
 		
 		for(char c = 'a'; c <= 'z'; c++) {
-			//System.out.println(decipher(cipher,c)+ "\n");
+		//	System.out.println(decipher(cipher,c)+ "\n");
 			testing = ht.rechneDistanz(decipher(cipher,c));
 			if(testing < min) {
 				min = testing;

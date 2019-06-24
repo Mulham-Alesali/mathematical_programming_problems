@@ -1,13 +1,23 @@
+/**
+ *	View class
+ * @author Mulham Alesali, Nawid Shadab, Mahmoud Abdalrahman
+ *
+ */
+
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.swing.*;
 
+import java.util.logging.Logger;
+
+
 public class View extends JPanel implements ActionListener, PropertyChangeListener{
+	 private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private static final long serialVersionUID = 1L;
 	Model model;
@@ -90,33 +100,49 @@ public class View extends JPanel implements ActionListener, PropertyChangeListen
 	}
 	@Override
 	public void actionPerformed(ActionEvent e)  {		
+
+		
 		if (e.getSource() == btnopenfile){
 
 			
 			model.setFile(openFile(model.getFrame()));
 			try {
 				this.areamartix.setText(model.readFile(model.getFile()));
-				readInput();
+				
 			} 
 			catch (Exception e1) {
 		        JOptionPane.showMessageDialog(null ,e1.getMessage(), "InfoBox: ", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		else if(e.getSource() == btnberechnen) {
-		
+			try {
+				
+				readInput();
+				double[][] result =	model.calculate(Model.stringToMatrix(model.getMatrix()));
+				this.areamatrix2.setText(Model.matrixToString(result));
+				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				this.areamatrix2.setText(e1.getMessage());
+				e1.printStackTrace();
+			}
 		}
 				
 		
 	}
 	
 	public void readInput() {
+
+		LOGGER.info(this.areamartix.getText());
+		
 		model.setMatrix(this.areamartix.getText());
-		model.setMatrix2(this.areamatrix2.getText());
+	//	model.setMatrix2(this.areamatrix2.getText());
 	}
 	
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
+		
 				
 	}
 

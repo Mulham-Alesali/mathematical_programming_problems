@@ -1,3 +1,9 @@
+/**
+ *	the frame class
+ * @author Mulham Alesali, Nawid Shadab, Mahmoud Abdalrahman
+ *
+ */
+
 import java.awt.event.*;
 import javax.swing.*;
 

@@ -1,7 +1,7 @@
 
 public class Gauss {
     private double[][] augmentedMatrix;
-
+    private double[][] result;
     /**
      * Constructor for a GaussJordan object. Takes in a two dimensional double
      * array holding the matrix.
@@ -18,6 +18,19 @@ public class Gauss {
      *
      */
     public void eliminate(double[][] Matrix) {
+    	result = new double[Matrix.length][];
+    	for(int i = 0; i < result.length;i++) {
+    		result[i] = new double[i];
+    	}
+    	
+    	for(int i = 0; i < result.length; i++) {
+    		for(int j = 0; j < result[i].length;j++) {
+    			if(j == i)result[i][j] = 1;
+    			else result[i][j] = 0;
+    		}
+    	}
+    	
+    	
         int startColumn = 0;
         for (int row=0; row<augmentedMatrix.length; row++) {
             //if the number in the start column is 0, try to switch with another
@@ -29,7 +42,12 @@ public class Gauss {
                         double[] temp = augmentedMatrix[i];
                         augmentedMatrix[i]=augmentedMatrix[row];
                         augmentedMatrix[row]=temp;
+                        
+                        double[] temp2 = result[i];
+                        result[i]=result[row];
+                        result[row]=temp2;
                         switched = true;
+                        
                     }
                     i++;
                 }
@@ -43,6 +61,7 @@ public class Gauss {
                 double divisor = augmentedMatrix[row][startColumn];
                 for (int i=startColumn; i<augmentedMatrix[row].length; i++) {
                     augmentedMatrix[row][i] = augmentedMatrix[row][i]/divisor;
+                    result[row][i] = result[row][i]/divisor;
                 }
             }
             //make sure the number in the start column of all other rows is 0
@@ -51,7 +70,9 @@ public class Gauss {
                     double multiple = 0-augmentedMatrix[i][startColumn];
                     for (int j=startColumn; j<augmentedMatrix[row].length; j++){
                         augmentedMatrix[i][j] +=
-                            multiple*augmentedMatrix[row][j];
+                        		multiple*augmentedMatrix[row][j];
+                        result[i][j] += multiple * result[row][j];
+                        
                     }
                 }
             }
@@ -66,9 +87,9 @@ public class Gauss {
      */
     public String toString() {
         String text = "";
-        for (int i=0; i<augmentedMatrix.length; i++) {
-            for (int j=0; j<augmentedMatrix[i].length; j++) {
-                text+=augmentedMatrix[i][j] + "\t";
+        for (int i=0; i<result.length; i++) {
+            for (int j=0; j<result[i].length; j++) {
+                text+=result[i][j] + "\t";
             }
             text+="\n";
         }
